@@ -1,0 +1,89 @@
+import random
+import string
+
+def generer_mot_de_passe():
+    """
+    Génère un mot de passe selon les préférences de l'utilisateur.
+    
+    Returns:
+        str: Le mot de passe généré
+    """
+    print("=== Générateur de mot de passe personnalisé ===")
+    
+    # 1. Collecte des préférences utilisateur
+    try:
+        longueur = int(input("Longueur du mot de passe (8-32) : "))
+        if longueur < 8 or longueur > 32:
+            print("Longueur invalide, utilisation de 12 par défaut.")
+            longueur = 12
+    except ValueError:
+        print("Valeur invalide, utilisation de 12 par défaut.")
+        longueur = 12
+    
+    # 2. Choix des types de caractères
+    print("\nTypes de caractères à inclure :")
+    
+    inclure_majuscules = input("Inclure les majuscules (A-Z) ? (o/n) : ").lower() == 'o'
+    inclure_minuscules = input("Inclure les minuscules (a-z) ? (o/n) : ").lower() == 'o'
+    inclure_chiffres = input("Inclure les chiffres (0-9) ? (o/n) : ").lower() == 'o'
+    inclure_speciaux = input("Inclure les caractères spéciaux (!@#$%...) ? (o/n) : ").lower() == 'o'
+    
+    # 3. Validation : au moins un type doit être sélectionné
+    if not (inclure_majuscules or inclure_minuscules or inclure_chiffres or inclure_speciaux):
+        print("Aucun type sélectionné ! Utilisation des paramètres par défaut.")
+        inclure_majuscules = inclure_minuscules = inclure_chiffres = inclure_speciaux = True
+    
+    # 4. Construction de l'ensemble de caractères
+    caracteres = ""
+    caracteres_obligatoires = []  # Pour garantir au moins un de chaque type
+    
+    if inclure_majuscules:
+        maj = string.ascii_uppercase
+        caracteres += maj
+        caracteres_obligatoires.append(random.choice(maj))
+    
+    if inclure_minuscules:
+        min = string.ascii_lowercase
+        caracteres += min
+        caracteres_obligatoires.append(random.choice(min))
+    
+    if inclure_chiffres:
+        chiffres = string.digits
+        caracteres += chiffres
+        caracteres_obligatoires.append(random.choice(chiffres))
+    
+    if inclure_speciaux:
+        speciaux = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+        caracteres += speciaux
+        caracteres_obligatoires.append(random.choice(speciaux))
+    
+    # 5. Vérification que la longueur est suffisante
+    if longueur < len(caracteres_obligatoires):
+        print(f"Longueur augmentée à {len(caracteres_obligatoires)} pour inclure tous les types.")
+        longueur = len(caracteres_obligatoires)
+    
+    # 6. Génération du mot de passe
+    # Commencer par les caractères obligatoires
+    mot_de_passe = caracteres_obligatoires.copy()
+    
+    # Compléter avec des caractères aléatoires
+    for _ in range(longueur - len(caracteres_obligatoires)):
+        mot_de_passe.append(random.choice(caracteres))
+    
+    # 7. Mélanger pour plus de sécurité
+    random.shuffle(mot_de_passe)
+    
+    # 8. Retourner le mot de passe sous forme de chaîne
+    return ''.join(mot_de_passe)
+
+
+# Exemple d'utilisation
+if __name__ == "__main__":
+    mdp = generer_mot_de_passe()
+    print(f"\nVotre mot de passe généré : {mdp}")
+    print(f"Longueur : {len(mdp)} caractères")
+    
+    # Option : générer plusieurs mots de passe
+    print("\n--- Génération de 3 mots de passe supplémentaires ---")
+    for i in range(3):
+        print(f"Mot de passe {i+1}: {generer_mot_de_passe()}")
