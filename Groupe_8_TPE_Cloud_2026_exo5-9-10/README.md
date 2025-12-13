@@ -1,4 +1,5 @@
 LISTE DES MEMBRES :
+
 1)MBAYAM PRINCE BELLA (22A013FS)- Contribution:developpement exercice 5,10 et documentation et mise sur Githhub
 
 2)DJASRABE MBAIHIWALA BARTHELEMY (23B177FS)- Contribution:developpement exercice 5,9
@@ -24,6 +25,7 @@ Exercice 9 : Pour vérifier si une phrase est un palindrome, on nettoie d'abord 
 Exercice 10 : Pour générer un mot de passe personnalisé, on demande d'abord à l'utilisateur la longueur voulue et les types de caractères
  désirés, puis on construit un ensemble de caractères correspondant, on s'assure d'inclure au moins un caractère de chaque type sélectionné, on
  complète avec des caractères aléatoires, et on mélange le tout pour obtenir un mot de passe sécurisé.
+
 
 
 
