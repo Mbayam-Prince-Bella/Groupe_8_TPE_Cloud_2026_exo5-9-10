@@ -86,4 +86,5 @@ if __name__ == "__main__":
     # Option : générer plusieurs mots de passe
     print("\n--- Génération de 3 mots de passe supplémentaires ---")
     for i in range(3):
+
         print(f"Mot de passe {i+1}: {generer_mot_de_passe()}")
