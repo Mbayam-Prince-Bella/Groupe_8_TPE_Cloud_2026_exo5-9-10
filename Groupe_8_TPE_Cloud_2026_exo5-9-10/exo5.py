@@ -1,48 +1,71 @@
 def compresser_texte(texte):
-    """
-    Compresse un texte en remplaçant les lettres répétées par un compteur.
-    
-    Args:
-        texte (str): Le texte à compresser
-        
-    Returns:
-        str: Le texte compressé
-    """
-    # Cas spécial : chaîne vide
     if not texte:
         return ""
-    
-    # Initialisation
+
     texte_compresse = []
     caractere_courant = texte[0]
     compteur = 1
-    
-    # Parcourir le texte à partir du deuxième caractère
+
     for i in range(1, len(texte)):
         if texte[i] == caractere_courant:
-            # Même caractère : incrémenter le compteur
             compteur += 1
         else:
-            # Caractère différent : ajouter la compression du caractère précédent
             texte_compresse.append(caractere_courant)
-            if compteur > 1:  # On n'ajoute pas le compteur s'il est égal à 1
+            if compteur > 1:
                 texte_compresse.append(str(compteur))
-            
-            # Réinitialiser pour le nouveau caractère
             caractere_courant = texte[i]
             compteur = 1
-    
-    # Ajouter le dernier caractère (et son compteur)
+
     texte_compresse.append(caractere_courant)
     if compteur > 1:
         texte_compresse.append(str(compteur))
-    
-    # Retourner la chaîne compressée
+
     return ''.join(texte_compresse)
 
 
 def decompresser_texte(texte_compresse):
-    """
+    if not texte_compresse:
+        return ""
+
+    texte_decompresse = []
+    i = 0
+
+    while i < len(texte_compresse):
+        caractere = texte_compresse[i]
+
+        if i + 1 < len(texte_compresse) and texte_compresse[i + 1].isdigit():
+            j = i + 1
+            nombre_str = ""
+
+            while j < len(texte_compresse) and texte_compresse[j].isdigit():
+                nombre_str += texte_compresse[j]
+                j += 1
+
+            texte_decompresse.append(caractere * int(nombre_str))
+            i = j
+        else:
+            texte_decompresse.append(caractere)
+            i += 1
+
+    return ''.join(texte_decompresse)
+
+
+# Programme principal
+if __name__ == "__main__":
+    texte_original = input("Entrez une chaîne de caractères à compresser : ")
+
+    texte_compresse = compresser_texte(texte_original)
+    texte_decompresse = decompresser_texte(texte_compresse)
+
+    print("\nRésultats :")
+    print(f"Texte original     : {texte_original}")
+    print(f"Texte compressé    : {texte_compresse}")
+    print(f"Texte décompressé  : {texte_decompresse}")
+
+    if texte_original == texte_decompresse:
+        print("Vérification : OK")
+    else:
+        print("Vérification : ERREUR")    """
     Décompresse un texte compressé avec la méthode RLE (Run-Length Encoding).
     
     Args:
@@ -122,3 +145,4 @@ if __name__ == "__main__":
         print(f"Ratio     : {ratio:.1f}%")
         print(f"Vérif     : {'✓' if test == decompresse else '✗'}")
         print("-" * 30)
+
