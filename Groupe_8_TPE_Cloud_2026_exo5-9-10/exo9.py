@@ -1,44 +1,21 @@
 import re  # Module pour les expressions régulières
 
 def est_palindrome_phrase(phrase):
-    """
-    Vérifie si une phrase est un palindrome en ignorant espaces, ponctuation et casse.
-    
-    Args:
-        phrase (str): La phrase à vérifier
-        
-    Returns:
-        bool: True si c'est un palindrome, False sinon
-    """
-    # 1. Nettoyage de la phrase
-    # Supprime tout ce qui n'est pas une lettre (espaces, ponctuation, chiffres)
+    # Supprime tout ce qui n'est pas une lettre
     phrase_nettoyee = re.sub(r'[^a-zA-Z]', '', phrase)
     
-    # 2. Conversion en minuscules pour comparaison insensible à la casse
+    # Met en minuscules
     phrase_nettoyee = phrase_nettoyee.lower()
     
-    # 3. Vérification du palindrome
-    # On compare la phrase avec son inverse
+    # Compare avec l'inverse
     return phrase_nettoyee == phrase_nettoyee[::-1]
 
 
-# Exemple d'utilisation
+# Programme principal
 if __name__ == "__main__":
-    # Test avec l'exemple donné
-    phrase_test = "A man, a plan, a canal, Panama!"
-    
-    if est_palindrome_phrase(phrase_test):
-        print(f'"{phrase_test}" est un palindrome !')
+    phrase_utilisateur = input("Entrez un mot ou une phrase : ")
+
+    if est_palindrome_phrase(phrase_utilisateur):
+        print(f'"{phrase_utilisateur}" est un palindrome !')
     else:
-        print(f'"{phrase_test}" n\'est pas un palindrome.')
-    
-    # Autres tests
-    tests = [
-        "Ésope reste ici et se repose.",
-        "La mariée ira mal.",
-        "Ceci n'est pas un palindrome"
-    ]
-    
-    for phrase in tests:
-        resultat = "✓" if est_palindrome_phrase(phrase) else "✗"
-        print(f'{resultat} "{phrase}"')
+        print(f'"{phrase_utilisateur}" n\'est pas un palindrome.')
